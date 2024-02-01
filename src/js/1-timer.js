@@ -49,7 +49,9 @@ buttonStart.addEventListener('click', event => {
     if (totalTime <= 0) {
       clearInterval(intervalId);
     } else {
-      let { days, hours, minutes, seconds } = convertMs(totalTime);
+      let { days, hours, minutes, seconds } = addLeadingZero(
+        convertMs(totalTime)
+      );
       timerDays.textContent = days;
       timerHours.textContent = hours;
       timerMinutes.textContent = minutes;
@@ -70,4 +72,10 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
+}
+function addLeadingZero(value) {
+  for (let element in value) {
+    value[element] = value[element].toString().padStart(2, '0');
+  }
+  return value;
 }
